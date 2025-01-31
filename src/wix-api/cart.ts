@@ -7,6 +7,7 @@ import { products } from "@wix/stores";
 export async function getCart(wixclient: WixClient,) {
   // const wixClient = await getWixClient();
   try {
+    const a = await wixclient.currentCart.getCurrentCart();
     return await wixclient.currentCart.getCurrentCart();
   } catch (error) {
     if (

@@ -1,4 +1,4 @@
-import { wixBroserClient } from "@/lib/wix-client.browser";
+import { wixBrowserClient } from "@/lib/wix-client.browser";
 import {
   addToCart,
   AddToCartValues,
@@ -8,7 +8,7 @@ import {
   UpdateCartItemQuantityValues,
 } from "@/wix-api/cart";
 import {
-    MutationKey,
+  MutationKey,
   QueryKey,
   useMutation,
   useQuery,
@@ -22,7 +22,7 @@ const queryKey: QueryKey = ["cart"];
 export function useCart(initialData: currentCart.Cart | null) {
   return useQuery({
     queryKey,
-    queryFn: () => getCart(wixBroserClient),
+    queryFn: () => getCart(wixBrowserClient),
     initialData,
   });
 }
@@ -33,7 +33,8 @@ export function useAddItemToCart() {
   const { toast } = useToast();
 
   return useMutation({
-    mutationFn: (values: AddToCartValues) => addToCart(wixBroserClient, values),
+    mutationFn: (values: AddToCartValues) =>
+      addToCart(wixBrowserClient, values),
     onSuccess(data) {
       toast({ description: "Item added to cart" });
       queryClient.cancelQueries({ queryKey });
@@ -55,15 +56,15 @@ export function useUpdateCartItemQuantity() {
 
   const { toast } = useToast();
 
-  const mutationKey: MutationKey= ["useUpdateCartItemQuantity"]
+  const mutationKey: MutationKey = ["useUpdateCartItemQuantity"];
 
   return useMutation({
     mutationKey,
     mutationFn: (values: UpdateCartItemQuantityValues) =>
-      updateCartItemQuantity(wixBroserClient, values),
+      updateCartItemQuantity(wixBrowserClient, values),
     onMutate: async ({ productId, newQuantity }) => {
       await queryClient.cancelQueries({ queryKey });
-      
+
       const previousState =
         queryClient.getQueryData<currentCart.Cart>(queryKey);
 
@@ -76,62 +77,58 @@ export function useUpdateCartItemQuantity() {
         ),
       }));
 
-      return {previousState};
-
+      return { previousState };
     },
 
     onError(error, variables, context) {
-        queryClient.setQueryData(queryKey, context?.previousState)
-        console.error(error);
-        toast({
-            variant: "destructive",
-            description: "Failed to update cart item quantity",
-        })
+      queryClient.setQueryData(queryKey, context?.previousState);
+      console.error(error);
+      toast({
+        variant: "destructive",
+        description: "Failed to update cart item quantity",
+      });
     },
 
-    onSettled(){
-        if(queryClient.isMutating({mutationKey})===1){
-          queryClient.invalidateQueries({queryKey});
-        }
-    }
-
+    onSettled() {
+      if (queryClient.isMutating({ mutationKey }) === 1) {
+        queryClient.invalidateQueries({ queryKey });
+      }
+    },
   });
 }
 
-
-export function useRemoveCartItem(){
+export function useRemoveCartItem() {
   const queryClient = useQueryClient();
   const { toast } = useToast();
 
   return useMutation({
-    mutationFn: (productId: string)=> removeCartItem(wixBroserClient, productId),
-    onMutate: async (productId)=>{
+    mutationFn: (productId: string) =>
+      removeCartItem(wixBrowserClient, productId),
+    onMutate: async (productId) => {
       await queryClient.cancelQueries({ queryKey });
-      
+
       const previousState =
         queryClient.getQueryData<currentCart.Cart>(queryKey);
-        queryClient.setQueryData<currentCart.Cart>(queryKey, (oldData)=>({
-          ...oldData,
-          lineItems: oldData?.lineItems?.filter(
-            lineItem =>lineItem._id!==productId
-          )
-          
-        }))
+      queryClient.setQueryData<currentCart.Cart>(queryKey, (oldData) => ({
+        ...oldData,
+        lineItems: oldData?.lineItems?.filter(
+          (lineItem) => lineItem._id !== productId,
+        ),
+      }));
 
-        return {previousState}
+      return { previousState };
     },
-    
+
     onError(error, variables, context) {
-      queryClient.setQueryData(queryKey, context?.previousState)
-        console.error(error);
-        toast({
-            variant: "destructive",
-            description: "Failed to update cart item quantity",
-        })
+      queryClient.setQueryData(queryKey, context?.previousState);
+      console.error(error);
+      toast({
+        variant: "destructive",
+        description: "Failed to update cart item quantity",
+      });
     },
-    onSettled(){
-      queryClient.invalidateQueries({queryKey})
-      
-    }
-  })
+    onSettled() {
+      queryClient.invalidateQueries({ queryKey });
+    },
+  });
 }

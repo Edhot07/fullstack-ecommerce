@@ -14,10 +14,8 @@ import { getWixServerClient } from "@/lib/wix-client.server";
 
 export default function Home() {
   return (
-    // <main className="mx-auto max-w-7xl space-y-10 bg-red-400 px-5 py-10">
     <main className="mx-auto max-w-7xl space-y-10  px-5 py-10">
       <div className="flex items-center bg-secondary md:h-96">
-        {/* <div className="space-y-7 bg-blue-500 p-10 text-center md:w-1/2"> */}
         <div className="space-y-7 p-10 text-center md:w-1/2">
           <h1 className="text-3xl font-bold md:text-4xl">
             Fill the void in your heart

@@ -14,7 +14,6 @@ export async function createBackInStockNotificationRequest(
   {email, itemUrl, product, selectedOptions}: BackInStockNotificationRequestValues
 ) {
     const selectedVariant = findVariant(product, selectedOptions);
-    console.log(itemUrl,"This is the url")
 
     await wixClient.backInStockNotifications.createBackInStockNotificationRequest(
         {

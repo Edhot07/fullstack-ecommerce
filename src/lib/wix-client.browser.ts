@@ -5,4 +5,4 @@ import { getWixClient } from "./wix-client.base";
 
 const tokens: Tokens = JSON.parse(Cookies.get(WIX_SESSION_COOKIE) || "{}")
 
-export const wixBroserClient = getWixClient(tokens)
+export const wixBrowserClient = getWixClient(tokens)

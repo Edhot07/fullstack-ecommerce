@@ -89,7 +89,7 @@ export default function ShoppingCartButton({
                 </div>
               </div>
             )}
-            {/* <pre>{JSON.stringify(cartquery.data, null, 2)}</pre> */}
+            
           </div>
           <hr />
           <div className="flex items-center justify-between gap-5">
@@ -128,7 +128,6 @@ function ShoppingCartItem({ item, onProductLinkClicked }: ShoppingCartItemsProps
   if (!productId) return null;
 
   const slug = item.url?.split("/").pop(); //To get the last element, eg: amazon.com/bag, bag is the last element of the url
-  console.log(slug);
 
   const quantityLimitReached =
     !!item.quantity &&

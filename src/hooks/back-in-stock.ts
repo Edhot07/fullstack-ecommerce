@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { useToast } from "./use-toast";
 import { BackInStockNotificationRequestValues, createBackInStockNotificationRequest } from "@/wix-api/backInStockNotifications";
-import { wixBroserClient } from "@/lib/wix-client.browser";
+import { wixBrowserClient } from "@/lib/wix-client.browser";
 
 export function useCreateBackInStockNotificationRequest(){
     const {toast} = useToast();
@@ -9,7 +9,7 @@ export function useCreateBackInStockNotificationRequest(){
     return useMutation({
         mutationFn: (values: BackInStockNotificationRequestValues)=>
             
-            createBackInStockNotificationRequest(wixBroserClient, values),
+            createBackInStockNotificationRequest(wixBrowserClient, values),
         
         onError(error){
             console.error(error, "This is the error");
