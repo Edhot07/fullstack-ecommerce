@@ -83,11 +83,11 @@ const ProductDetails = ({product}: ProductDetailsProps) => {
             <ProductOptions product={product} selectedOptions={selectedOptions} setSelectOptions={setSelectedOptions}/>
             <div>
                 Selected Options:
-                {JSON.stringify(selectedOptions)}
+                {/* {JSON.stringify(selectedOptions)} */}
             </div>
             <div>
                 Seclected Variant:
-                {JSON.stringify(selectedVariant?.choices)}
+                {/* {JSON.stringify(selectedVariant?.choices)} */}
             </div>
             <div className='space-y-1.5'>
                 <Label htmlFor='quantity'>Quantity</Label>
@@ -126,10 +126,8 @@ const ProductDetails = ({product}: ProductDetailsProps) => {
                     selectedOptions={selectedOptions}
                     quantity={quantity}
                     disabled={availableQuantityExceeded || quantity < 1}
-                    
                 />
                 </div>
-                
             ):(
                 <BackInStockNotificationButton product={product} selectedOptions={selectedOptions} className='w-full'/>
             )}
@@ -152,9 +150,6 @@ const ProductDetails = ({product}: ProductDetailsProps) => {
                         ))}
 
                     </Accordion>
-                    
-
-
                 </div>
             )}
         </div>
