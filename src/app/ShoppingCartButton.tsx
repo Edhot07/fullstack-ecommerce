@@ -1,5 +1,6 @@
 "use client";
 
+import CheckoutButton from "@/components/CheckoutButton";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -35,7 +36,7 @@ export default function ShoppingCartButton({
       0,
     ) || 0;
   return (
-    <>  
+    <>
       <div className="relative">
         <Button
           variant={"ghost"}
@@ -64,8 +65,10 @@ export default function ShoppingCartButton({
           <div className="flex grow flex-col space-y-5 overflow-auto pt-1">
             <ul className="space-y-5">
               {cartquery.data?.lineItems?.map((Item) => (
-                <ShoppingCartItem key={Item._id} item={Item} 
-                  onProductLinkClicked={()=>setsheetOpen(false)}
+                <ShoppingCartItem
+                  key={Item._id}
+                  item={Item}
+                  onProductLinkClicked={() => setsheetOpen(false)}
                 />
               ))}
             </ul>
@@ -89,23 +92,23 @@ export default function ShoppingCartButton({
                 </div>
               </div>
             )}
-            
           </div>
           <hr />
           <div className="flex items-center justify-between gap-5">
             <div className="5 space-y-0">
               <p className="text-sm">Subtotal amount:</p>
               <p className="font-bold">
-              {/* @ts-expect-error */}
+                {/* @ts-expect-error */}
                 {cartquery.data?.subtotal?.formattedConvertedAmount}
               </p>
               <p className="text-xs text-muted-foreground">
                 Shipping and taxes calculated at checkout
               </p>
             </div>
-            <Button size="lg" disabled={!totalQuantity || cartquery.isFetching}>
-              Checkout
-            </Button>
+            <CheckoutButton
+              size="lg"
+              disabled={!totalQuantity || cartquery.isFetching}
+            />
           </div>
         </SheetContent>
       </Sheet>
@@ -115,10 +118,13 @@ export default function ShoppingCartButton({
 
 interface ShoppingCartItemsProps {
   item: currentCart.LineItem;
-  onProductLinkClicked: ()=> void;
+  onProductLinkClicked: () => void;
 }
 
-function ShoppingCartItem({ item, onProductLinkClicked }: ShoppingCartItemsProps) {
+function ShoppingCartItem({
+  item,
+  onProductLinkClicked,
+}: ShoppingCartItemsProps) {
   const updateQuantityMutation = useUpdateCartItemQuantity();
 
   const removeItemMutation = useRemoveCartItem();
@@ -137,9 +143,7 @@ function ShoppingCartItem({ item, onProductLinkClicked }: ShoppingCartItemsProps
   return (
     <li className="flex items-center gap-3">
       <div className="relative size-fit flex-none">
-        <Link href={`/products/${slug}`}
-          onClick={onProductLinkClicked}
-        >
+        <Link href={`/products/${slug}`} onClick={onProductLinkClicked}>
           <WixImage
             mediaIdentifier={item.image}
             width={110}
@@ -148,17 +152,18 @@ function ShoppingCartItem({ item, onProductLinkClicked }: ShoppingCartItemsProps
             className="flex-none bg-secondary"
           />
         </Link>
-        <button className="absolute -right-1 -top-1 border bg-background rounded-full p-0.5"
-          onClick={()=>removeItemMutation.mutate(productId)}
+        <button
+          className="absolute -right-1 -top-1 rounded-full border bg-background p-0.5"
+          onClick={() => removeItemMutation.mutate(productId)}
         >
-          <X className="size-3"/>
+          <X className="size-3" />
         </button>
       </div>
       <div className="space-y-1.5 text-sm">
-        <Link href={`/products/${slug}`}
-        onClick={onProductLinkClicked}
-        >
-          <p className="font-bold text-red-400">{item.productName?.translated || "Item"}</p>
+        <Link href={`/products/${slug}`} onClick={onProductLinkClicked}>
+          <p className="font-bold text-red-400">
+            {item.productName?.translated || "Item"}
+          </p>
         </Link>
         {!!item.descriptionLines?.length && (
           <p>

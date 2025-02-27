@@ -8,13 +8,13 @@ import { Suspense } from "react";
 import { getWixClient } from "@/lib/wix-client.base";
 import Product from "@/components/Product";
 import { Skeleton } from "@/components/ui/skeleton";
-import {getCollectionBySlug} from "@/wix-api/collection";
+import { getCollectionBySlug } from "@/wix-api/collection";
 import { queryProducts } from "@/wix-api/products";
 import { getWixServerClient } from "@/lib/wix-client.server";
 
 export default function Home() {
   return (
-    <main className="mx-auto max-w-7xl space-y-10  px-5 py-10">
+    <main className="mx-auto max-w-7xl space-y-10 px-5 py-10">
       <div className="flex items-center bg-secondary md:h-96">
         <div className="space-y-7 p-10 text-center md:w-1/2">
           <h1 className="text-3xl font-bold md:text-4xl">
@@ -30,7 +30,7 @@ export default function Home() {
             </Link>
           </Button>
         </div>
-        <div className="relative hidden h-full w-1/2 bg-fuchsia-700 md:block">
+        <div className="relative hidden h-full w-1/2 md:block">
           <Image
             className="h-full object-cover"
             src={banner}
@@ -47,11 +47,10 @@ export default function Home() {
 }
 
 async function FeaturedProducts() {
-  await delay(1000);
 
   const wixClient = getWixServerClient();
 
-  const collection = await getCollectionBySlug(wixClient,"feature-products")
+  const collection = await getCollectionBySlug(wixClient, "feature-products");
 
   if (!collection?._id) {
     return null;
@@ -62,9 +61,9 @@ async function FeaturedProducts() {
   //   .hasSome("collectionIds", [collection._id])
   //   .descending("lastUpdated")
   //   .find();
-  const featuredProducts = await queryProducts(wixClient,{
+  const featuredProducts = await queryProducts(wixClient, {
     collectionIds: collection._id,
-    sort: "last_updated"
+    sort: "last_updated",
   });
 
   if (!featuredProducts.items.length) {
@@ -74,7 +73,7 @@ async function FeaturedProducts() {
   return (
     <div className="space-y-5">
       <h2 className="text-2xl font-bold">Featured Products</h2>
-      <div className="grid-col-2 flex flex-col gap-5 sm:grid md:grid-cols-3 lg:grid-cols-4">
+      <div className="grid-cols-2 flex flex-col gap-5 sm:grid md:grid-cols-3 lg:grid-cols-4">
         {featuredProducts.items.map((product) => (
           <Product product={product} key={product._id} />
         ))}
@@ -88,7 +87,7 @@ async function FeaturedProducts() {
 
 function LoadingSckeleton() {
   return (
-    <div className="grid-col-2 flex flex-col gap-5 p-10 sm:grid md:grid-cols-3 lg:grid-cols-4">
+    <div className="grid-cols-2 flex flex-col gap-5 sm:grid md:grid-cols-3 lg:grid-cols-4">
       {Array.from({ length: 8 }).map((_, i) => (
         <Skeleton key={i} className="h-[26rem] w-full" />
       ))}

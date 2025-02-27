@@ -2,6 +2,7 @@ import { wixBrowserClient } from "@/lib/wix-client.browser";
 import {
   addToCart,
   AddToCartValues,
+  clearCart,
   getCart,
   removeCartItem,
   updateCartItemQuantity,
@@ -131,4 +132,19 @@ export function useRemoveCartItem() {
       queryClient.invalidateQueries({ queryKey });
     },
   });
+}
+
+
+export function useClearCart(){
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ()=> clearCart(wixBrowserClient),
+
+    onSuccess() {
+      queryClient.setQueryData(queryKey, null)
+      queryClient.invalidateQueries({queryKey})
+    },
+    retry: 3,
+  })
 }

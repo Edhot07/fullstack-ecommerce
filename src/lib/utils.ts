@@ -3,6 +3,12 @@ import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { number, string } from "zod";
 
+//To use the values breakpoints, colors, etc in javascript
+import resolveConfig from "tailwindcss/resolveConfig"
+import tailwindConfig from "../../tailwind.config";
+
+export const twConfig = resolveConfig(tailwindConfig);// Till here
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }

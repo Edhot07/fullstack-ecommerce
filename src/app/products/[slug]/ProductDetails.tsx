@@ -14,6 +14,7 @@ import { InfoIcon } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import AddToCartButton from '@/components/AddToCartButton';
 import BackInStockNotificationButton from '@/components/BackInStockNotificationButton';
+import BuyNowButton from '@/components/BuyNowButton';
 interface ProductDetailsProps{
     product: products.Product;  // Assuming Product is a type from @wix/stores library. Replace with actual type when using this library.  // eslint-disable-line @typescript-eslint/no-explicit-any
   
@@ -112,6 +113,7 @@ const ProductDetails = ({product}: ProductDetailsProps) => {
             </div>
 
             {inStock ? (
+                <div className="flex items-center gap-2.5">
                 <AddToCartButton
                     product={product}
                     selectedOptions={selectedOptions}
@@ -119,6 +121,14 @@ const ProductDetails = ({product}: ProductDetailsProps) => {
                     disabled={availableQuantityExceeded || quantity < 1}
                     className="w-full"
                 />
+                <BuyNowButton
+                    product={product}
+                    selectedOptions={selectedOptions}
+                    quantity={quantity}
+                    disabled={availableQuantityExceeded || quantity < 1}
+                    
+                />
+                </div>
                 
             ):(
                 <BackInStockNotificationButton product={product} selectedOptions={selectedOptions} className='w-full'/>
