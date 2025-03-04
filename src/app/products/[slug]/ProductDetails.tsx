@@ -82,11 +82,11 @@ const ProductDetails = ({product}: ProductDetailsProps) => {
             <ProductPrice product={product} selectedVariant={selectedVariant} />
             <ProductOptions product={product} selectedOptions={selectedOptions} setSelectOptions={setSelectedOptions}/>
             <div>
-                Selected Options:
+                {/* Selected Options: */}
                 {/* {JSON.stringify(selectedOptions)} */}
             </div>
             <div>
-                Seclected Variant:
+                {/* Seclected Variant: */}
                 {/* {JSON.stringify(selectedVariant?.choices)} */}
             </div>
             <div className='space-y-1.5'>

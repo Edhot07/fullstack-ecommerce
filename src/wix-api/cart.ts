@@ -13,6 +13,7 @@ export async function getCart(wixclient: WixClient,) {
     if (
       (error as any).details.applicationError.code === "OWNED_CART_NOT_FOUND"
     ) {
+      console.log(error, "This is an error")
       return null;
     } else {
       throw error;

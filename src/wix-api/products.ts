@@ -17,7 +17,7 @@ interface QueryProductsFilter {
 export async function queryProducts(
   wixclient: WixClient,
   {
-    q,
+    q,    
     collectionIds,
     sort = "last_updated",
     skip,
@@ -32,7 +32,9 @@ export async function queryProducts(
   let query = wixclient.products.queryProducts();
 
   if (q) {
-    query = query.startsWith("name", q);
+    // query = query.startsWith("name", q);
+    {/* @ts-expect-error */}
+    query = query.contains("name", q);
   }
 
   const collectionIdsArray = collectionIds

@@ -19,9 +19,6 @@ export default async function Navbar() {
     getLoggedInMember(wixClient),
     getCollections(wixClient),
   ]);
-  // const cart = await getCart(getWixServerClient());
-  // const totalQuantity =
-  //   cart?.lineItems.reduce((acc, item) => acc + (item.quantity || 0), 0) || 0;
   return (
     <header className="bg-background shadow-sm">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-5">
@@ -33,7 +30,7 @@ export default async function Navbar() {
         </Suspense>
         <div className="flex flex-wrap items-center gap-5">
           <Link href="/" className="flex items-center gap-4">
-            <Image src={logo} alt="EStore Logo" width={40} height={40} />
+            <Image src={logo} alt="EStore Logo" width={40} height={40} className="rounded-full" />
             <span className="text-xl font-bold">EStore</span>
           </Link>
           <MainNavigation
@@ -41,7 +38,7 @@ export default async function Navbar() {
             className="hidden lg:flex"
           />
         </div>
-        <SearchField className="hidden max-w-96 lg:inline" />
+        <SearchField className="hidden max-w-96 lg:inline mt-2"/>
         <div className="flex items-center justify-center gap-5">
           <UserButton
             loggedInMember={loggedInMember}

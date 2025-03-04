@@ -17,6 +17,7 @@ import {
 } from "./ui/dropdown-menu";
 import {
   Check,
+  CircleUser,
   LogInIcon,
   LogOutIcon,
   Monitor,
@@ -44,21 +45,21 @@ export default function UserButton({
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button size="icon" variant="ghost" className={className}>
-          <UserIcon />
+          <CircleUser />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="min-w-44 max-w-64">
         {loggedInMember && (
           <>
             <DropdownMenuLabel>
-              Logged in as{" "}
+              Hi, {" "}
               {loggedInMember.contact?.firstName || loggedInMember.loginEmail}
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <Link href="/profile">
               <DropdownMenuItem>
-                <UserIcon className="mr-2 size-4" />
-                Profile
+                <CircleUser className="mr-2 size-4" />
+                My profile
               </DropdownMenuItem>
             </Link>
             <DropdownMenuSeparator />

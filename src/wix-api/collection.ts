@@ -17,7 +17,6 @@ export const getCollections = cache(
     .ne("_id", "b2a03c36-97bb-d9f5-4322-85fc3852ffac") //exlude featured products
     .find();
 
-
     return collections.items;
   },
 );
