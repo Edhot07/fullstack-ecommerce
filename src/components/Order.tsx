@@ -4,6 +4,7 @@ import {formatDate} from "date-fns"
 import Link from "next/link";
 import Badge from "./ui/badge";
 import WixImage from "./WixImage";
+import { cn } from "@/lib/utils";
 
 interface OrderProps{
     order: orders.Order;
